@@ -1,13 +1,10 @@
 import { createContext } from 'react'
 
 /** 모달을 여는 함수 시그니처 */
-type OpenModal = (
-  /** 모달 내부에 렌더링할 React 노드 */
-  content: React.ReactNode
-) => void
+type OpenModal = <T>(content: React.ReactNode) => Promise<T>
 
 /** 모달을 닫는 함수 시그니처 */
-type CloseModal = () => void
+type CloseModal = (value: unknown) => void
 
 /**
  * 모달 컨텍스트 값 타입

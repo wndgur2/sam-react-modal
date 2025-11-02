@@ -1,5 +1,4 @@
 import { createRef, useCallback, useState } from 'react'
-import { Modal } from './types'
 import { useModal } from '../../hooks/useModal'
 import { ModalContext } from './ModalContext'
 import { deepOverride } from '../../utils/deepOverride'
@@ -33,6 +32,12 @@ type Props = {
   beforeClose?: (ref?: React.RefObject<HTMLDivElement>) => Promise<void> | void
 }
 
+type Modal = {
+  content: React.ReactNode
+  ref: React.RefObject<HTMLDivElement>
+  resolver: (value: unknown) => void
+}
+
 export function ModalProvider({
   children,
   containerAttributes = {},
@@ -44,23 +49,30 @@ export function ModalProvider({
 
   const [modals, setModals] = useState<Modal[]>([])
 
-  const openModal = useCallback((content: React.ReactNode) => {
-    const newModal = { content, ref: createRef<HTMLDivElement>() }
-    setModals((prev) => {
-      const newModals = [...prev, newModal]
-      return newModals
+  const openModal = useCallback(<T,>(content: React.ReactNode): Promise<T> => {
+    return new Promise<T>((resolve) => {
+      const newModal: Modal = {
+        content,
+        ref: createRef<HTMLDivElement>(),
+        resolver: (value: unknown) => resolve(value as T),
+      }
+      setModals((prev) => [...prev, newModal])
     })
   }, [])
 
-  const closeModal = useCallback(async () => {
-    const top = modals[modals.length - 1]
+  const closeModal = useCallback(
+    async (value: unknown) => {
+      const top = modals[modals.length - 1]
 
-    if (!top) return
+      if (!top) return
 
-    await beforeClose?.(top.ref)
+      await beforeClose?.(top.ref)
 
-    setModals((prev) => prev.slice(0, -1))
-  }, [beforeClose, modals])
+      setModals((prev) => prev.slice(0, -1))
+      top.resolver(value)
+    },
+    [beforeClose, modals]
+  )
 
   return (
     <ModalContext.Provider value={{ openModal, closeModal }}>
@@ -93,7 +105,11 @@ function ModalsRenderer({ modals, containerAttributes, backdropAttributes }: Mod
               {...backdropAttributes}
               key={index}
             >
-              <div id="top-modal-wrapper" onClick={(e) => e.stopPropagation()}>
+              <div
+                id="top-modal-wrapper"
+                onClick={(e) => e.stopPropagation()}
+                style={{ width: 'fit-content' }}
+              >
                 {modal.content}
               </div>
             </div>

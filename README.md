@@ -1,1 +1,1 @@
-Basic UI Library for React mobile development.
+Basic UI Library for mobile React project.
