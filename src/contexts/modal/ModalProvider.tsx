@@ -38,27 +38,23 @@ export function ModalProvider({
 
   const closeModal = useCallback(
     async (value?: unknown) => {
-      setModals((modals) => {
-        const top = modals[modals.length - 1]
-        if (!top) return modals
+      const top = modals[modals.length - 1]
+      if (!top) return
 
-        if (beforeClose) {
-          beforeClose(top.ref).then(() => {
-            const newModals = modals.slice(0, -1)
+      if (beforeClose) {
+        beforeClose(top.ref).then(() => {
+          setModals((prev) => {
+            const newModals = prev.filter((m) => m !== top)
             top.resolver(value)
-
-            setModals(newModals)
+            return newModals
           })
-          return modals
-        } else {
-          const newModals = modals.slice(0, -1)
-          top.resolver(value)
-
-          return newModals
-        }
-      })
+        })
+      } else {
+        top.resolver(value)
+        setModals(modals.slice(0, -1))
+      }
     },
-    [beforeClose]
+    [beforeClose, modals, setModals]
   )
 
   const closeAllModals = useCallback(() => {
