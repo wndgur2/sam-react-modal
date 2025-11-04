@@ -1,6 +1,6 @@
 {
-  "name": "sam-ui-mobile",
-  "version": "0.1.10",
+  "name": "sam-react-modal",
+  "version": "0.1.0",
   "type": "module",
   "exports": {
     ".": {

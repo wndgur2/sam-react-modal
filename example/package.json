@@ -12,7 +12,7 @@
   "dependencies": {
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "sam-ui-mobile": "^0.1.10"
+    "sam-ui-mobile": "link:../sam-ui-mobile"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

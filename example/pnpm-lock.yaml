@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  sam-ui-mobile: link:..
+
 importers:
 
   .:
@@ -15,8 +18,8 @@ importers:
         specifier: ^19.1.1
         version: 19.2.0(react@19.2.0)
       sam-ui-mobile:
-        specifier: ^0.1.10
-        version: 0.1.10(eslint@9.37.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: link:..
+        version: link:..
     devDependencies:
       '@eslint/js':
         specifier: ^9.36.0
@@ -697,11 +700,6 @@ packages:
     peerDependencies:
       eslint: '>=8.40'
 
-  eslint-plugin-react-refresh@0.4.24:
-    resolution: {integrity: sha512-nLHIW7TEq3aLrEYWpVaJ1dRgFR+wLDPN8e8FpYAql/bMV2oBEfC37K0gLEGgv9fy66juNShSMV8OkTqzltcG/w==}
-    peerDependencies:
-      eslint: '>=8.40'
-
   eslint-scope@8.4.0:
     resolution: {integrity: sha512-sNXOfKCn74rt8RICKMvJS7XKV/Xk9kA7DyJr8mJik3S7Cwgy3qlkkmyS2uQB3jiJg6VNdZd/pDBJu0nvG2NlTg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -1001,12 +999,6 @@ packages:
 
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
-
-  sam-ui-mobile@0.1.10:
-    resolution: {integrity: sha512-1SNZo927WNNwXqOwvMo4t1YIMFQ3wm3JCNM4YTttf4sPNHV0W2wMCPqUUEuSj0jAaw7WAebDjHchKgaZ/7J8SA==}
-    peerDependencies:
-      react: '>=17 || >=18'
-      react-dom: '>=17 || >=18'
 
   scheduler@0.27.0:
     resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
@@ -1748,10 +1740,6 @@ snapshots:
     dependencies:
       eslint: 9.37.0
 
-  eslint-plugin-react-refresh@0.4.24(eslint@9.37.0):
-    dependencies:
-      eslint: 9.37.0
-
   eslint-scope@8.4.0:
     dependencies:
       esrecurse: 4.3.0
@@ -2048,14 +2036,6 @@ snapshots:
   run-parallel@1.2.0:
     dependencies:
       queue-microtask: 1.2.3
-
-  sam-ui-mobile@0.1.10(eslint@9.37.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
-    dependencies:
-      eslint-plugin-react-refresh: 0.4.24(eslint@9.37.0)
-      react: 19.2.0
-      react-dom: 19.2.0(react@19.2.0)
-    transitivePeerDependencies:
-      - eslint
 
   scheduler@0.27.0: {}
 
