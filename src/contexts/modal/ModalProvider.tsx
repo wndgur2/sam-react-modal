@@ -1,4 +1,4 @@
-import { createRef, useCallback, useState } from 'react'
+import { createRef, useCallback, useEffect, useState } from 'react'
 import { useModal } from '../../hooks/useModal'
 import { ModalContext } from './ModalContext'
 import { deepOverride } from '../../utils/deepOverride'
@@ -25,6 +25,10 @@ export function ModalProvider({
 
   const [modals, setModals] = useState<Modal[]>([])
 
+  useEffect(() => {
+    console.log('modals changed:', modals)
+  }, [modals])
+
   const openModal = useCallback(<T,>(content: React.ReactNode): Promise<T> => {
     return new Promise<T>((resolve) => {
       const newModal: Modal = {
@@ -38,23 +42,23 @@ export function ModalProvider({
 
   const closeModal = useCallback(
     async (value?: unknown) => {
-      const top = modals[modals.length - 1]
-      if (!top) return
+      setModals((prev) => {
+        const top = prev[prev.length - 1]
+        if (!top) return prev
 
-      if (beforeClose) {
-        beforeClose(top.ref).then(() => {
-          setModals((prev) => {
-            const newModals = prev.filter((m) => m !== top)
+        if (beforeClose) {
+          beforeClose(top.ref).then(() => {
             top.resolver(value)
-            return newModals
+            setModals((p) => p.slice(0, -1))
           })
-        })
-      } else {
+          return prev
+        }
+
         top.resolver(value)
-        setModals(modals.slice(0, -1))
-      }
+        return prev.slice(0, -1)
+      })
     },
-    [beforeClose, modals, setModals]
+    [beforeClose, setModals]
   )
 
   const closeAllModals = useCallback(() => {
