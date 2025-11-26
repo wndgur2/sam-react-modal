@@ -32,6 +32,7 @@ export function ModalProvider({
   const openModal = useCallback(<T,>(content: React.ReactNode): Promise<T> => {
     return new Promise<T>((resolve) => {
       const newModal: Modal = {
+        id: Date.now().toString(),
         content,
         ref: createRef<HTMLDivElement>(),
         resolver: (value: unknown) => resolve(value as T),
@@ -42,23 +43,24 @@ export function ModalProvider({
 
   const closeModal = useCallback(
     async (value?: unknown) => {
+      const top = modals[modals.length - 1]
       setModals((prev) => {
-        const top = prev[prev.length - 1]
         if (!top) return prev
 
         if (beforeClose) {
+          console.log('beforeClose 실행', top)
           beforeClose(top.ref).then(() => {
             top.resolver(value)
-            setModals((p) => p.slice(0, -1))
+            setModals((p) => p.filter((prev) => prev !== top))
           })
           return prev
         }
 
         top.resolver(value)
-        return prev.slice(0, -1)
+        return prev.filter((prev) => prev !== top)
       })
     },
-    [beforeClose, setModals]
+    [beforeClose, setModals, modals]
   )
 
   const closeAllModals = useCallback(() => {
@@ -99,7 +101,7 @@ function ModalsRenderer({
         <div id="modal-backdrop" onClick={() => closeModal()} {...backdropAttributes}></div>
         {modals.map((modal, index) => (
           <div
-            key={index}
+            key={modal.id}
             ref={modal.ref}
             onClick={(e) => e.stopPropagation()}
             {...modalWrapperAttributes}

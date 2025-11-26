@@ -1,6 +1,6 @@
 {
   "name": "sam-react-modal",
-  "version": "0.1.01",
+  "version": "0.1.12",
   "type": "module",
   "exports": {
     ".": {
