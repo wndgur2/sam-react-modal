@@ -1,15 +1,22 @@
 import { GridBox, GridCell, useModal } from 'sam-ui-mobile'
 
 function MainPage() {
-  const { openModal } = useModal()
-  const onClick = () => {
+  const { openModal, closeModal } = useModal()
+  const onClick = async () => {
     console.log('onClick')
-    openModal(
+    const res = await openModal(
       <div style={{ backgroundColor: '#ffffff', padding: 320 }}>
         Hello!
-        <button onClick={onClick}>Click me</button>
+        <button
+          onClick={() => {
+            closeModal('world')
+          }}
+        >
+          return 'world'
+        </button>
       </div>
     )
+    console.log('modal returned ', res)
   }
   return (
     <GridBox columns="2fr 1fr" gap={10}>

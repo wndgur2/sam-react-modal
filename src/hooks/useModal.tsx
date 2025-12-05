@@ -10,7 +10,7 @@ import { ModalContext, ModalContextValue } from '../contexts/modal/ModalContext'
 export function useModal(): ModalContextValue {
   const ctx = useContext(ModalContext)
   if (!ctx) throw new Error('ModalContext missing provider')
-  const { openModal, closeModal } = ctx
+  const { openModal, closeModal, closeAllModals, modals } = ctx
 
-  return { openModal, closeModal }
+  return { openModal, closeModal, closeAllModals, modals }
 }
