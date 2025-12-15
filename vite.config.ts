@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "SamUIMobile",
+      name: "sam-react-modal",
       fileName: (format) => `index.${format}.js`,
       formats: ["es"] // ✅ only ESM
     },

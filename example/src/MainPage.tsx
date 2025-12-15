@@ -1,4 +1,4 @@
-import { GridBox, GridCell, useModal } from 'sam-ui-mobile'
+import { GridBox, GridCell, useModal } from 'sam-react-modal'
 
 function MainPage() {
   const { openModal, closeModal } = useModal()

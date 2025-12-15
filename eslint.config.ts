@@ -9,4 +9,11 @@ export default defineConfig([
   eslint.configs.recommended,
   tseslint.configs.recommended,
   reactHooks.configs.flat.recommended,
+  {
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  }
 ]);

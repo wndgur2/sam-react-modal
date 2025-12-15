@@ -1,4 +1,4 @@
-import { ModalProvider } from 'sam-ui-mobile'
+import { ModalProvider } from 'sam-react-modal'
 import MainPage from './MainPage'
 
 function App() {

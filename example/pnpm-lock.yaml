@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  sam-ui-mobile: link:..
+  sam-react-modal: link:..
 
 importers:
 
@@ -17,7 +17,7 @@ importers:
       react-dom:
         specifier: ^19.1.1
         version: 19.2.0(react@19.2.0)
-      sam-ui-mobile:
+      sam-react-modal:
         specifier: link:..
         version: link:..
     devDependencies:
