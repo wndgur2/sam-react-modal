@@ -1,39 +1,27 @@
-import { GridBox, GridCell, useModal } from 'sam-react-modal'
+import { FlexBox, useModal } from 'sam-react-modal'
 
 function MainPage() {
   const { openModal, closeModal } = useModal()
-  const onClick = async () => {
-    console.log('onClick')
-    const res = await openModal(
-      <div style={{ backgroundColor: '#ffffff', padding: 320 }}>
-        Hello!
-        <button
-          onClick={() => {
-            closeModal('world')
-          }}
-        >
-          return 'world'
-        </button>
-      </div>
+
+  const showConfirm = async () => {
+    const choice = await openModal<string>(
+      <FlexBox direction="column" style={{ padding: 24, backgroundColor: '#fff' }}>
+        <h2>Delete file?</h2>
+        <FlexBox gap={12}>
+          <button onClick={() => closeModal('cancel')}>Cancel</button>
+          <button onClick={() => closeModal('confirm')}>Delete</button>
+        </FlexBox>
+      </FlexBox>
     )
-    console.log('modal returned ', res)
+
+    console.log(choice)
+
+    if (choice === 'confirm') {
+      alert('File deleted')
+    }
   }
-  return (
-    <GridBox columns="2fr 1fr" gap={10}>
-      <GridCell column="1/3" style={{ backgroundColor: 'lightgrey' }}>
-        Header
-      </GridCell>
-      <GridCell column="1/2" style={{ backgroundColor: 'lightgrey' }}>
-        <div style={{ backgroundColor: 'skyblue' }}>hasdasello</div>
-      </GridCell>
-      <GridCell column="2/3" style={{ backgroundColor: 'lightgrey' }}>
-        <button onClick={onClick}>Click me</button>
-      </GridCell>
-      <GridCell column="1/3" style={{ backgroundColor: 'lightgrey' }}>
-        Footer
-      </GridCell>
-    </GridBox>
-  )
+
+  return <button onClick={showConfirm}>Delete</button>
 }
 
 export default MainPage

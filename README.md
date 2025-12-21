@@ -100,7 +100,7 @@ Drop these inside your modals (or anywhere else) to keep layout code terse.
 
 ## Custom animations example
 
-```tsx
+```jsx
 <ModalProvider
   backdropAttributes={{ className: 'fadeIn' }}
   beforeClose={async (ref) => {

@@ -43,8 +43,9 @@ export function ModalProvider({
 
   const closeModal = useCallback(
     async (value?: unknown) => {
-      const top = modals[modals.length - 1]
       setModals((prev) => {
+        const top = prev[prev.length - 1]
+        console.log('closeModal 호출23', prev)
         if (!top) return prev
 
         if (beforeClose) {
@@ -60,7 +61,7 @@ export function ModalProvider({
         return prev.filter((prev) => prev !== top)
       })
     },
-    [beforeClose, setModals, modals]
+    [beforeClose, setModals]
   )
 
   const closeAllModals = useCallback(() => {
